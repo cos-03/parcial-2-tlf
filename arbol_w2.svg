@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2143" height="792" viewBox="0 0 2143 792" role="img" aria-labelledby="title description">
+<title id="title">Árbol de derivación</title>
+<desc id="description">Árbol sintáctico generado desde una derivación.</desc>
+<style>
+text{font-family:Segoe UI,Arial,sans-serif}
+.edge{stroke:#94a3b8;stroke-width:2}
+.nonterminal{fill:#e0e7ff;stroke:#4f46e5;stroke-width:2}
+.terminal{fill:#ecfdf5;stroke:#059669;stroke-width:2}
+.nonterminal-text{fill:#312e81;font-size:14px;font-weight:600}
+.terminal-text{fill:#065f46;font-size:14px}
+</style>
+<rect width="100%" height="100%" rx="14" fill="#f8fafc"/>
+<line class="edge" x1="1071.5" y1="66.0" x2="69.0" y2="120.0"/>
+<line class="edge" x1="1071.5" y1="66.0" x2="179.5" y2="120.0"/>
+<line class="edge" x1="179.5" y1="158.0" x2="179.5" y2="212.0"/>
+<line class="edge" x1="1071.5" y1="66.0" x2="287.0" y2="120.0"/>
+<line class="edge" x1="1071.5" y1="66.0" x2="1182.0" y2="120.0"/>
+<line class="edge" x1="1182.0" y1="158.0" x2="644.5" y2="212.0"/>
+<line class="edge" x1="644.5" y1="250.0" x2="644.5" y2="304.0"/>
+<line class="edge" x1="644.5" y1="342.0" x2="394.5" y2="396.0"/>
+<line class="edge" x1="644.5" y1="342.0" x2="502.0" y2="396.0"/>
+<line class="edge" x1="644.5" y1="342.0" x2="602.0" y2="396.0"/>
+<line class="edge" x1="602.0" y1="434.0" x2="602.0" y2="488.0"/>
+<line class="edge" x1="644.5" y1="342.0" x2="702.0" y2="396.0"/>
+<line class="edge" x1="644.5" y1="342.0" x2="802.0" y2="396.0"/>
+<line class="edge" x1="802.0" y1="434.0" x2="802.0" y2="488.0"/>
+<line class="edge" x1="644.5" y1="342.0" x2="902.0" y2="396.0"/>
+<line class="edge" x1="1182.0" y1="158.0" x2="1002.0" y2="212.0"/>
+<line class="edge" x1="1182.0" y1="158.0" x2="1539.5" y2="212.0"/>
+<line class="edge" x1="1539.5" y1="250.0" x2="1252.0" y2="304.0"/>
+<line class="edge" x1="1252.0" y1="342.0" x2="1252.0" y2="396.0"/>
+<line class="edge" x1="1252.0" y1="434.0" x2="1102.0" y2="488.0"/>
+<line class="edge" x1="1252.0" y1="434.0" x2="1202.0" y2="488.0"/>
+<line class="edge" x1="1252.0" y1="434.0" x2="1302.0" y2="488.0"/>
+<line class="edge" x1="1302.0" y1="526.0" x2="1302.0" y2="580.0"/>
+<line class="edge" x1="1252.0" y1="434.0" x2="1402.0" y2="488.0"/>
+<line class="edge" x1="1539.5" y1="250.0" x2="1502.0" y2="304.0"/>
+<line class="edge" x1="1539.5" y1="250.0" x2="1789.5" y2="304.0"/>
+<line class="edge" x1="1789.5" y1="342.0" x2="1789.5" y2="396.0"/>
+<line class="edge" x1="1789.5" y1="434.0" x2="1789.5" y2="488.0"/>
+<line class="edge" x1="1789.5" y1="526.0" x2="1605.0" y2="580.0"/>
+<line class="edge" x1="1789.5" y1="526.0" x2="1708.0" y2="580.0"/>
+<line class="edge" x1="1789.5" y1="526.0" x2="1842.5" y2="580.0"/>
+<line class="edge" x1="1842.5" y1="618.0" x2="1842.5" y2="672.0"/>
+<line class="edge" x1="1789.5" y1="526.0" x2="1977.0" y2="580.0"/>
+<line class="edge" x1="1071.5" y1="66.0" x2="2077.0" y2="120.0"/>
+<rect class="nonterminal" x="1021.5" y="28.0" width="100.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1071.5" y="52.0" text-anchor="middle">PROGRAMA</text>
+<rect class="terminal" x="28.0" y="120.0" width="82.0" height="38" rx="9"/>
+<text class="terminal-text" x="69.0" y="144.0" text-anchor="middle">imagen</text>
+<rect class="nonterminal" x="141.5" y="120.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="179.5" y="144.0" text-anchor="middle">IDENT</text>
+<rect class="terminal" x="134.0" y="212.0" width="91.0" height="38" rx="9"/>
+<text class="terminal-text" x="179.5" y="236.0" text-anchor="middle">paisaje</text>
+<rect class="terminal" x="249.0" y="120.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="287.0" y="144.0" text-anchor="middle">{</text>
+<rect class="nonterminal" x="1118.5" y="120.0" width="127.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1182.0" y="144.0" text-anchor="middle">OPERACIONES</text>
+<rect class="nonterminal" x="590.0" y="212.0" width="109.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="644.5" y="236.0" text-anchor="middle">OPERACION</text>
+<rect class="nonterminal" x="603.5" y="304.0" width="82.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="644.5" y="328.0" text-anchor="middle">ESCALA</text>
+<rect class="terminal" x="349.0" y="396.0" width="91.0" height="38" rx="9"/>
+<text class="terminal-text" x="394.5" y="420.0" text-anchor="middle">escalar</text>
+<rect class="terminal" x="464.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="502.0" y="420.0" text-anchor="middle">(</text>
+<rect class="nonterminal" x="564.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="602.0" y="420.0" text-anchor="middle">NUM</text>
+<rect class="terminal" x="564.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="602.0" y="512.0" text-anchor="middle">800</text>
+<rect class="terminal" x="664.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="702.0" y="420.0" text-anchor="middle">,</text>
+<rect class="nonterminal" x="764.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="802.0" y="420.0" text-anchor="middle">NUM</text>
+<rect class="terminal" x="764.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="802.0" y="512.0" text-anchor="middle">600</text>
+<rect class="terminal" x="864.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="902.0" y="420.0" text-anchor="middle">)</text>
+<rect class="terminal" x="964.0" y="212.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1002.0" y="236.0" text-anchor="middle">;</text>
+<rect class="nonterminal" x="1476.0" y="212.0" width="127.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1539.5" y="236.0" text-anchor="middle">OPERACIONES</text>
+<rect class="nonterminal" x="1197.5" y="304.0" width="109.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1252.0" y="328.0" text-anchor="middle">OPERACION</text>
+<rect class="nonterminal" x="1202.0" y="396.0" width="100.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1252.0" y="420.0" text-anchor="middle">ROTACION</text>
+<rect class="terminal" x="1064.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1102.0" y="512.0" text-anchor="middle">rotar</text>
+<rect class="terminal" x="1164.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1202.0" y="512.0" text-anchor="middle">(</text>
+<rect class="nonterminal" x="1264.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1302.0" y="512.0" text-anchor="middle">NUM</text>
+<rect class="terminal" x="1264.0" y="580.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1302.0" y="604.0" text-anchor="middle">90</text>
+<rect class="terminal" x="1364.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1402.0" y="512.0" text-anchor="middle">)</text>
+<rect class="terminal" x="1464.0" y="304.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1502.0" y="328.0" text-anchor="middle">;</text>
+<rect class="nonterminal" x="1726.0" y="304.0" width="127.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1789.5" y="328.0" text-anchor="middle">OPERACIONES</text>
+<rect class="nonterminal" x="1735.0" y="396.0" width="109.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1789.5" y="420.0" text-anchor="middle">OPERACION</text>
+<rect class="nonterminal" x="1748.5" y="488.0" width="82.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1789.5" y="512.0" text-anchor="middle">FILTRO</text>
+<rect class="terminal" x="1564.0" y="580.0" width="82.0" height="38" rx="9"/>
+<text class="terminal-text" x="1605.0" y="604.0" text-anchor="middle">filtro</text>
+<rect class="terminal" x="1670.0" y="580.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1708.0" y="604.0" text-anchor="middle">(</text>
+<rect class="nonterminal" x="1770.0" y="580.0" width="145.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1842.5" y="604.0" text-anchor="middle">NOMBRE_FILTRO</text>
+<rect class="terminal" x="1770.0" y="672.0" width="145.0" height="38" rx="9"/>
+<text class="terminal-text" x="1842.5" y="696.0" text-anchor="middle">escala_grises</text>
+<rect class="terminal" x="1939.0" y="580.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1977.0" y="604.0" text-anchor="middle">)</text>
+<rect class="terminal" x="2039.0" y="120.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="2077.0" y="144.0" text-anchor="middle">}</text>
+</svg>

@@ -1,0 +1,38 @@
+{
+  "start_symbol": "PROGRAMA",
+  "strategy": "leftmost",
+  "productions": {
+    "PROGRAMA": [["\"imagen\"", "IDENT", "\"{\"", "OPERACIONES", "\"}\""]],
+    "OPERACIONES": [
+      ["OPERACION"],
+      ["OPERACION", "\";\"", "OPERACIONES"]
+    ],
+    "OPERACION": [["RECORTE"], ["ESCALA"], ["ROTACION"], ["FILTRO"]],
+    "RECORTE": [
+      ["\"recortar\"", "\"(\"", "NUM", "\",\"", "NUM", "\",\"", "NUM", "\",\"", "NUM", "\")\""]
+    ],
+    "ESCALA": [["\"escalar\"", "\"(\"", "NUM", "\",\"", "NUM", "\")\""]],
+    "ROTACION": [["\"rotar\"", "\"(\"", "NUM", "\")\""]],
+    "FILTRO": [["\"filtro\"", "\"(\"", "NOMBRE_FILTRO", "\")\""]],
+    "NOMBRE_FILTRO": [
+      ["\"desenfoque\""],
+      ["\"nitidez\""],
+      ["\"escala_grises\""],
+      ["\"sepia\""]
+    ],
+    "IDENT": [["foto"], ["paisaje"]],
+    "NUM": [["10"], ["20"], ["300"], ["200"], ["800"], ["600"], ["90"]]
+  },
+  "steps": [
+    { "symbol": "PROGRAMA", "alternative": 0 },
+    { "symbol": "IDENT", "alternative": 0 },
+    { "symbol": "OPERACIONES", "alternative": 1 },
+    { "symbol": "OPERACION", "alternative": 2 },
+    { "symbol": "ROTACION", "alternative": 0 },
+    { "symbol": "NUM", "alternative": 6 },
+    { "symbol": "OPERACIONES", "alternative": 0 },
+    { "symbol": "OPERACION", "alternative": 3 },
+    { "symbol": "FILTRO", "alternative": 0 },
+    { "symbol": "NOMBRE_FILTRO", "alternative": 0 }
+  ]
+}

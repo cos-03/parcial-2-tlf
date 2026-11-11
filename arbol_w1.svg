@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2037" height="700" viewBox="0 0 2037 700" role="img" aria-labelledby="title description">
+<title id="title">Árbol de derivación</title>
+<desc id="description">Árbol sintáctico generado desde una derivación.</desc>
+<style>
+text{font-family:Segoe UI,Arial,sans-serif}
+.edge{stroke:#94a3b8;stroke-width:2}
+.nonterminal{fill:#e0e7ff;stroke:#4f46e5;stroke-width:2}
+.terminal{fill:#ecfdf5;stroke:#059669;stroke-width:2}
+.nonterminal-text{fill:#312e81;font-size:14px;font-weight:600}
+.terminal-text{fill:#065f46;font-size:14px}
+</style>
+<rect width="100%" height="100%" rx="14" fill="#f8fafc"/>
+<line class="edge" x1="1018.5" y1="66.0" x2="69.0" y2="120.0"/>
+<line class="edge" x1="1018.5" y1="66.0" x2="172.0" y2="120.0"/>
+<line class="edge" x1="172.0" y1="158.0" x2="172.0" y2="212.0"/>
+<line class="edge" x1="1018.5" y1="66.0" x2="272.0" y2="120.0"/>
+<line class="edge" x1="1018.5" y1="66.0" x2="1121.5" y2="120.0"/>
+<line class="edge" x1="1121.5" y1="158.0" x2="834.0" y2="212.0"/>
+<line class="edge" x1="834.0" y1="250.0" x2="834.0" y2="304.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="384.0" y2="396.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="496.0" y2="396.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="596.0" y2="396.0"/>
+<line class="edge" x1="596.0" y1="434.0" x2="596.0" y2="488.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="696.0" y2="396.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="796.0" y2="396.0"/>
+<line class="edge" x1="796.0" y1="434.0" x2="796.0" y2="488.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="896.0" y2="396.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="996.0" y2="396.0"/>
+<line class="edge" x1="996.0" y1="434.0" x2="996.0" y2="488.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="1096.0" y2="396.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="1196.0" y2="396.0"/>
+<line class="edge" x1="1196.0" y1="434.0" x2="1196.0" y2="488.0"/>
+<line class="edge" x1="834.0" y1="342.0" x2="1296.0" y2="396.0"/>
+<line class="edge" x1="1121.5" y1="158.0" x2="1396.0" y2="212.0"/>
+<line class="edge" x1="1121.5" y1="158.0" x2="1683.5" y2="212.0"/>
+<line class="edge" x1="1683.5" y1="250.0" x2="1683.5" y2="304.0"/>
+<line class="edge" x1="1683.5" y1="342.0" x2="1683.5" y2="396.0"/>
+<line class="edge" x1="1683.5" y1="434.0" x2="1499.0" y2="488.0"/>
+<line class="edge" x1="1683.5" y1="434.0" x2="1602.0" y2="488.0"/>
+<line class="edge" x1="1683.5" y1="434.0" x2="1736.5" y2="488.0"/>
+<line class="edge" x1="1736.5" y1="526.0" x2="1736.5" y2="580.0"/>
+<line class="edge" x1="1683.5" y1="434.0" x2="1871.0" y2="488.0"/>
+<line class="edge" x1="1018.5" y1="66.0" x2="1971.0" y2="120.0"/>
+<rect class="nonterminal" x="968.5" y="28.0" width="100.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1018.5" y="52.0" text-anchor="middle">PROGRAMA</text>
+<rect class="terminal" x="28.0" y="120.0" width="82.0" height="38" rx="9"/>
+<text class="terminal-text" x="69.0" y="144.0" text-anchor="middle">imagen</text>
+<rect class="nonterminal" x="134.0" y="120.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="172.0" y="144.0" text-anchor="middle">IDENT</text>
+<rect class="terminal" x="134.0" y="212.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="172.0" y="236.0" text-anchor="middle">foto</text>
+<rect class="terminal" x="234.0" y="120.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="272.0" y="144.0" text-anchor="middle">{</text>
+<rect class="nonterminal" x="1058.0" y="120.0" width="127.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1121.5" y="144.0" text-anchor="middle">OPERACIONES</text>
+<rect class="nonterminal" x="779.5" y="212.0" width="109.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="834.0" y="236.0" text-anchor="middle">OPERACION</text>
+<rect class="nonterminal" x="788.5" y="304.0" width="91.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="834.0" y="328.0" text-anchor="middle">RECORTE</text>
+<rect class="terminal" x="334.0" y="396.0" width="100.0" height="38" rx="9"/>
+<text class="terminal-text" x="384.0" y="420.0" text-anchor="middle">recortar</text>
+<rect class="terminal" x="458.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="496.0" y="420.0" text-anchor="middle">(</text>
+<rect class="nonterminal" x="558.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="596.0" y="420.0" text-anchor="middle">NUM</text>
+<rect class="terminal" x="558.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="596.0" y="512.0" text-anchor="middle">10</text>
+<rect class="terminal" x="658.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="696.0" y="420.0" text-anchor="middle">,</text>
+<rect class="nonterminal" x="758.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="796.0" y="420.0" text-anchor="middle">NUM</text>
+<rect class="terminal" x="758.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="796.0" y="512.0" text-anchor="middle">20</text>
+<rect class="terminal" x="858.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="896.0" y="420.0" text-anchor="middle">,</text>
+<rect class="nonterminal" x="958.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="996.0" y="420.0" text-anchor="middle">NUM</text>
+<rect class="terminal" x="958.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="996.0" y="512.0" text-anchor="middle">300</text>
+<rect class="terminal" x="1058.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1096.0" y="420.0" text-anchor="middle">,</text>
+<rect class="nonterminal" x="1158.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1196.0" y="420.0" text-anchor="middle">NUM</text>
+<rect class="terminal" x="1158.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1196.0" y="512.0" text-anchor="middle">200</text>
+<rect class="terminal" x="1258.0" y="396.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1296.0" y="420.0" text-anchor="middle">)</text>
+<rect class="terminal" x="1358.0" y="212.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1396.0" y="236.0" text-anchor="middle">;</text>
+<rect class="nonterminal" x="1620.0" y="212.0" width="127.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1683.5" y="236.0" text-anchor="middle">OPERACIONES</text>
+<rect class="nonterminal" x="1629.0" y="304.0" width="109.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1683.5" y="328.0" text-anchor="middle">OPERACION</text>
+<rect class="nonterminal" x="1642.5" y="396.0" width="82.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1683.5" y="420.0" text-anchor="middle">FILTRO</text>
+<rect class="terminal" x="1458.0" y="488.0" width="82.0" height="38" rx="9"/>
+<text class="terminal-text" x="1499.0" y="512.0" text-anchor="middle">filtro</text>
+<rect class="terminal" x="1564.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1602.0" y="512.0" text-anchor="middle">(</text>
+<rect class="nonterminal" x="1664.0" y="488.0" width="145.0" height="38" rx="9"/>
+<text class="nonterminal-text" x="1736.5" y="512.0" text-anchor="middle">NOMBRE_FILTRO</text>
+<rect class="terminal" x="1698.5" y="580.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1736.5" y="604.0" text-anchor="middle">sepia</text>
+<rect class="terminal" x="1833.0" y="488.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1871.0" y="512.0" text-anchor="middle">)</text>
+<rect class="terminal" x="1933.0" y="120.0" width="76.0" height="38" rx="9"/>
+<text class="terminal-text" x="1971.0" y="144.0" text-anchor="middle">}</text>
+</svg>
