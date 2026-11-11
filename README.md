@@ -92,6 +92,24 @@ aplica al siguiente no terminal según la estrategia. Las alternativas se
 numeran desde cero. El generador valida cada expansión, informa errores de
 secuencia o de gramática y rechaza derivaciones incompletas.
 
+#### Clases y relación entre ellas
+
+- `Grammar` guarda el símbolo inicial y las producciones de la GIC; su método
+  `validate()` comprueba su estructura.
+- `DerivationStep` representa una expansión solicitada: el no terminal y el
+  índice de la alternativa elegida.
+- `build_derivation(grammar, steps, strategy)` recibe esos datos, selecciona
+  el siguiente no terminal y crea un `Node` por cada símbolo del lado derecho
+  de la regla. No infiere reglas desde una cadena.
+- `Node` es la unidad del árbol: contiene el símbolo y sus hijos. El nodo raíz
+  corresponde al símbolo inicial; los terminales quedan como hojas.
+- `render_tree(root)` muestra los nodos jerárquicamente en texto;
+  `render_svg(root)` crea una versión gráfica y `yield_string(root)` concatena
+  las hojas para mostrar la cadena terminal.
+- `DerivationError` informa gramáticas o pasos inválidos. En modo consola,
+  `_load_request()` convierte el JSON en `Grammar` y `DerivationStep`, y
+  `main()` coordina la construcción y la presentación del árbol.
+
 ### Ejecutar
 
 Requiere Python 3.10 o posterior; no necesita dependencias externas.

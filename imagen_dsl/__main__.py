@@ -22,6 +22,22 @@ from .examples import GRAMMAR, W1_STEPS, W2_STEPS
 
 
 def _load_request(path: Path) -> tuple[Grammar, list[DerivationStep], Strategy]:
+    """Carga desde JSON la gramática y los pasos que consumirá el generador.
+
+    Convierte el objeto JSON en instancias de ``Grammar`` y ``DerivationStep``,
+    que son los tipos usados por ``build_derivation``. No deriva ni reconoce
+    una cadena automáticamente.
+
+    Args:
+        path: Ruta al archivo JSON de entrada.
+
+    Returns:
+        La gramática, la lista ordenada de expansiones y la estrategia.
+
+    Raises:
+        DerivationError: Si el archivo no existe, el JSON no es válido o sus
+            campos no tienen los tipos requeridos.
+    """
     try:
         request = json.loads(path.read_text(encoding="utf-8-sig"))
     except OSError as error:
@@ -82,6 +98,16 @@ def _load_request(path: Path) -> tuple[Grammar, list[DerivationStep], Strategy]:
 
 
 def main() -> int:
+    """Procesa argumentos, construye el árbol y lo muestra en texto o SVG.
+
+    Los datos provienen de un ejemplo precargado o de ``_load_request``.
+    ``build_derivation`` valida y construye el árbol; después ``render_tree``
+    o ``render_svg`` lo presentan y ``yield_string`` muestra su cadena final.
+
+    Returns:
+        Código de salida cero si la ejecución termina correctamente, o dos si
+        se presenta un error de derivación o de entrada/salida.
+    """
     parser = argparse.ArgumentParser(
         description="Construye un árbol desde una derivación explícita en JSON."
     )

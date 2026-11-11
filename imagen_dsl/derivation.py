@@ -10,17 +10,36 @@ Strategy = Literal["leftmost", "rightmost"]
 
 
 class DerivationError(ValueError):
-    """Error en la gramática o en los pasos de una derivación."""
+    """Error detectado al validar la gramática o construir una derivación.
+
+    Se lanza para que la interfaz pueda mostrar errores de entrada con un
+    mensaje entendible, en lugar de devolver un árbol parcial como si fuera
+    válido.
+    """
 
 
 @dataclass(frozen=True)
 class DerivationStep:
+    """Describe una expansión de un no terminal.
+
+    ``symbol`` nombra el no terminal que se expande y ``alternative`` es el
+    índice, empezando en cero, de la producción elegida en ``Grammar``.
+    """
+
     symbol: str
     alternative: int
 
 
 @dataclass
 class Node:
+    """Nodo del árbol de derivación creado por ``build_derivation``.
+
+    ``symbol`` conserva el terminal o no terminal. ``children`` es ``None``
+    mientras el símbolo no está expandido y pasa a ser una lista al aplicar
+    una producción. ``alternative`` registra cuál producción de la gramática
+    se aplicó a este nodo.
+    """
+
     symbol: str
     children: list[Node] | None = None
     alternative: int | None = None
@@ -28,10 +47,24 @@ class Node:
 
 @dataclass(frozen=True)
 class Grammar:
+    """Símbolo inicial y producciones de una gramática independiente del contexto.
+
+    Las claves de ``productions`` son no terminales; cada valor contiene las
+    alternativas y cada alternativa es una lista ordenada de símbolos del
+    lado derecho. ``build_derivation`` usa esta clase para crear los hijos de
+    los ``Node``.
+    """
+
     start_symbol: str
     productions: dict[str, list[list[str]]]
 
     def validate(self) -> None:
+        """Comprueba que el símbolo inicial y las alternativas tengan forma válida.
+
+        Raises:
+            DerivationError: Si la gramática está vacía o tiene símbolos o
+                alternativas mal formados.
+        """
         if not self.start_symbol:
             raise DerivationError("El símbolo inicial no puede estar vacío.")
         if self.start_symbol not in self.productions:
@@ -60,6 +93,12 @@ class Grammar:
 def _next_expandable(
     node: Node, nonterminals: set[str], strategy: Strategy
 ) -> Node | None:
+    """Busca el siguiente nodo hoja que se debe expandir.
+
+    Recorre los hijos de ``node`` de izquierda a derecha o de derecha a
+    izquierda, según ``strategy``. Solo devuelve hojas cuyo símbolo está
+    definido como clave en las producciones de ``Grammar``.
+    """
     if node.children is None:
         return node if node.symbol in nonterminals else None
     children = node.children if strategy == "leftmost" else reversed(node.children)
@@ -71,6 +110,7 @@ def _next_expandable(
 
 
 def _remaining_nonterminal(node: Node, nonterminals: set[str]) -> str | None:
+    """Devuelve el primer no terminal que quedó sin expandir en el árbol."""
     if node.children is None:
         return node.symbol if node.symbol in nonterminals else None
     for child in node.children:
@@ -83,7 +123,25 @@ def _remaining_nonterminal(node: Node, nonterminals: set[str]) -> str | None:
 def build_derivation(
     grammar: Grammar, steps: list[DerivationStep], strategy: Strategy
 ) -> Node:
-    """Aplica los pasos indicados y devuelve el árbol terminal completo."""
+    """Construye el árbol aplicando exactamente los pasos recibidos.
+
+    Esta función no busca una derivación a partir de una cadena: el llamador
+    proporciona la ``Grammar``, los ``DerivationStep`` y el orden de expansión.
+    Cada producción genera nuevos ``Node`` hijos. Al finalizar, todos los
+    no terminales deben haberse expandido.
+
+    Args:
+        grammar: Gramática que define los no terminales y sus producciones.
+        steps: Expansiones solicitadas en el orden en que deben aplicarse.
+        strategy: ``"leftmost"`` o ``"rightmost"``.
+
+    Returns:
+        La raíz ``Node`` del árbol de derivación completo.
+
+    Raises:
+        DerivationError: Si una regla, su orden o la secuencia es inválida o
+            queda un no terminal sin expandir.
+    """
     grammar.validate()
     if strategy not in ("leftmost", "rightmost"):
         raise DerivationError("La estrategia debe ser 'leftmost' o 'rightmost'.")
@@ -123,10 +181,15 @@ def build_derivation(
 
 
 def render_tree(root: Node) -> str:
-    """Representa el árbol con conectores de texto."""
+    """Convierte una raíz ``Node`` en un árbol jerárquico para la terminal.
+
+    Los nodos y sus hijos se conservan en el mismo orden definido por las
+    producciones aplicadas en ``build_derivation``.
+    """
     lines = [root.symbol]
 
     def visit(node: Node, prefix: str) -> None:
+        """Agrega recursivamente los descendientes de un nodo a la salida."""
         if node.children is None:
             return
         for index, child in enumerate(node.children):
@@ -140,7 +203,12 @@ def render_tree(root: Node) -> str:
 
 
 def render_svg(root: Node) -> str:
-    """Renderiza el árbol como SVG independiente y escalable."""
+    """Genera un SVG autónomo a partir del árbol de ``Node`` recibido.
+
+    Mide los subárboles para distribuirlos en niveles, dibuja primero las
+    conexiones y luego los nodos, y escapa sus etiquetas para producir XML
+    seguro. El resultado lo puede guardar la interfaz de consola como archivo.
+    """
     box_height = 38
     horizontal_gap = 24
     vertical_gap = 92
@@ -148,12 +216,14 @@ def render_svg(root: Node) -> str:
     positions: dict[int, tuple[float, float, float]] = {}
 
     def label(node: Node) -> str:
+        """Quita comillas de presentación de los terminales literales."""
         symbol = node.symbol
         if len(symbol) >= 2 and symbol[0] == symbol[-1] == '"':
             return symbol[1:-1]
         return symbol
 
     def measure(node: Node) -> tuple[float, int]:
+        """Calcula el ancho reservado y la profundidad de un subárbol."""
         node_width = max(76, len(label(node)) * 9 + 28)
         if not node.children:
             return float(node_width), 0
@@ -169,6 +239,7 @@ def render_svg(root: Node) -> str:
     svg_height = (depth + 1) * vertical_gap + 2 * padding
 
     def position(node: Node, left: float, level: int) -> None:
+        """Guarda el centro y la altura de cada nodo antes de dibujarlo."""
         subtree_width, _ = measure(node)
         box_width = max(76, len(label(node)) * 9 + 28)
         center = left + subtree_width / 2
@@ -206,6 +277,7 @@ def render_svg(root: Node) -> str:
     ]
 
     def draw_edges(node: Node) -> None:
+        """Escribe las líneas que conectan cada nodo con sus hijos."""
         if not node.children:
             return
         parent_x, parent_y, _ = positions[id(node)]
@@ -242,7 +314,11 @@ def render_svg(root: Node) -> str:
 
 
 def yield_string(root: Node) -> str:
-    """Concatena las hojas del árbol, separadas por espacios."""
+    """Obtiene la cadena derivada leyendo las hojas de izquierda a derecha.
+
+    Los nodos internos ``Node`` se omiten; los símbolos terminales quedan en
+    el orden de las producciones que creó ``build_derivation``.
+    """
     if root.children is None:
         if len(root.symbol) >= 2 and root.symbol[0] == root.symbol[-1] == '"':
             return root.symbol[1:-1]

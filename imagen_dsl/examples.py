@@ -1,7 +1,15 @@
-"""Gramática y derivaciones demostrativas del informe."""
+"""Gramática y derivaciones demostrativas del informe.
+
+``GRAMMAR`` contiene las producciones compartidas. Las claves ``IDENT`` y
+``NUM`` se incluyen como sustituciones de ejemplo para que sus hojas muestren
+lexemas concretos. ``W1_STEPS`` y ``W2_STEPS`` son secuencias de
+``DerivationStep`` que ``build_derivation`` ejecuta, respectivamente, por la
+izquierda y por la derecha.
+"""
 
 from .derivation import DerivationStep, Grammar
 
+# Producciones del DSL y lexemas de muestra para IDENT y NUM.
 GRAMMAR = Grammar(
     start_symbol="PROGRAMA",
     productions={
@@ -28,6 +36,7 @@ GRAMMAR = Grammar(
     },
 )
 
+# Recorte seguido de filtro; la expansión se hace por la izquierda.
 W1_STEPS = [
     DerivationStep("PROGRAMA", 0),
     DerivationStep("IDENT", 0),
@@ -44,6 +53,7 @@ W1_STEPS = [
     DerivationStep("NOMBRE_FILTRO", 3),
 ]
 
+# Escala, rotación y filtro; la expansión se hace por la derecha.
 W2_STEPS = [
     DerivationStep("PROGRAMA", 0),
     DerivationStep("OPERACIONES", 1),
