@@ -86,6 +86,56 @@
 
     .status.error { background: #fff1f2; color: #be123c; }
 
+    .validator { margin-bottom: 16px; }
+
+    .validator-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+      margin-top: 12px;
+    }
+
+    .validator-field { display: grid; gap: 7px; }
+
+    .validator-field label { color: #475569; font-size: .82rem; font-weight: 700; }
+
+    textarea {
+      width: 100%;
+      min-height: 76px;
+      resize: vertical;
+      padding: 11px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      color: #172033;
+      font: .9rem/1.5 Consolas, "Courier New", monospace;
+    }
+
+    textarea:focus, select:focus, button:focus-visible, input:focus-visible {
+      outline: 3px solid rgb(79 70 229 / 20%);
+      outline-offset: 2px;
+    }
+
+    .validation-result {
+      display: none;
+      margin: 12px 0 0;
+      padding: 11px 13px;
+      border: 1px solid #a7f3d0;
+      border-radius: 9px;
+      background: #ecfdf5;
+      color: #065f46;
+      font-size: .9rem;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .validation-result.visible { display: block; }
+    .validation-result.invalid {
+      border-color: #fecdd3;
+      background: #fff1f2;
+      color: #9f1239;
+    }
+
     .grid { display: grid; grid-template-columns: minmax(0, 1fr) 310px; gap: 16px; }
 
     .card { min-width: 0; padding: 18px; }
@@ -204,6 +254,8 @@
     @media (max-width: 580px) {
       .app { padding: 16px; }
       .field { min-width: 100%; }
+      .validator-form { grid-template-columns: 1fr; }
+      .validator-form button { width: 100%; }
       .tree-wrap { min-height: 340px; }
       .card { padding: 14px; }
     }
@@ -235,6 +287,22 @@
       <div id="status" class="status" role="status" aria-live="polite">
         Selecciona un ejemplo para comenzar.
       </div>
+    </section>
+
+    <section class="card validator" aria-labelledby="validator-title">
+      <div class="card-heading">
+        <h2 id="validator-title">Comprobar una cadena del DSL</h2>
+        <span class="counter">Validación sintáctica</span>
+      </div>
+      <form id="validator-form" class="validator-form">
+        <div class="validator-field">
+          <label for="source-input">Escribe un programa, por ejemplo: imagen foto { rotar(90) }</label>
+          <textarea id="source-input" spellcheck="false"
+            placeholder="imagen foto { recortar(10, 20, 300, 200); filtro(sepia) }"></textarea>
+        </div>
+        <button class="primary" type="submit">Comprobar cadena</button>
+      </form>
+      <p id="validation-result" class="validation-result" role="status" aria-live="polite"></p>
     </section>
 
     <div class="grid">
@@ -347,6 +415,9 @@
       example: document.querySelector("#example"),
       file: document.querySelector("#json-file"),
       status: document.querySelector("#status"),
+      validatorForm: document.querySelector("#validator-form"),
+      sourceInput: document.querySelector("#source-input"),
+      validationResult: document.querySelector("#validation-result"),
       tree: document.querySelector("#tree"),
       counter: document.querySelector("#counter"),
       direction: document.querySelector("#direction"),
@@ -370,6 +441,178 @@
     function fail(message) {
       throw new Error(message);
     }
+
+    class SyntaxErrorAtToken extends Error {
+      constructor(message, token) {
+        super(message);
+        this.token = token;
+      }
+    }
+
+    function tokenize(source) {
+      const tokens = [];
+      let index = 0;
+      while (index < source.length) {
+        const char = source[index];
+        if (/\s/.test(char)) {
+          index += 1;
+          continue;
+        }
+
+        const start = index;
+        const rest = source.slice(index);
+        const identifier = /^[A-Za-z_][A-Za-z0-9_]*/.exec(rest);
+        const number = /^\d+/.exec(rest);
+        if (identifier) {
+          index += identifier[0].length;
+          tokens.push({ type: "IDENT", value: identifier[0], position: start });
+        } else if (number) {
+          index += number[0].length;
+          tokens.push({ type: "NUM", value: number[0], position: start });
+        } else if ("{}(),;".includes(char)) {
+          index += 1;
+          tokens.push({ type: char, value: char, position: start });
+        } else {
+          throw new SyntaxErrorAtToken(`símbolo no reconocido '${char}'`, {
+            value: char,
+            position: start
+          });
+        }
+      }
+      tokens.push({ type: "EOF", value: "fin de entrada", position: source.length });
+      return tokens;
+    }
+
+    function validateDslSource(source) {
+      if (!source.trim()) {
+        throw new SyntaxErrorAtToken("ingresa una cadena para comprobar", {
+          value: "fin de entrada",
+          position: 0
+        });
+      }
+
+      const tokens = tokenize(source);
+      let cursor = 0;
+      const current = () => tokens[cursor];
+
+      function expect(value, description = `'${value}'`) {
+        const token = current();
+        if (token.value !== value) {
+          throw new SyntaxErrorAtToken(
+            `se esperaba ${description} y se encontró '${token.value}'`,
+            token
+          );
+        }
+        cursor += 1;
+        return token;
+      }
+
+      function expectType(type, description) {
+        const token = current();
+        if (token.type !== type) {
+          throw new SyntaxErrorAtToken(
+            `se esperaba ${description} y se encontró '${token.value}'`,
+            token
+          );
+        }
+        cursor += 1;
+        return token;
+      }
+
+      function parseOperation() {
+        const operation = current();
+        if (operation.value === "recortar") {
+          cursor += 1;
+          expect("(");
+          for (let parameter = 0; parameter < 4; parameter += 1) {
+            expectType("NUM", `el parámetro numérico ${parameter + 1} de recortar`);
+            if (parameter < 3) expect(",");
+          }
+          expect(")");
+          return;
+        }
+        if (operation.value === "escalar") {
+          cursor += 1;
+          expect("(");
+          expectType("NUM", "el ancho de escalar");
+          expect(",");
+          expectType("NUM", "el alto de escalar");
+          expect(")");
+          return;
+        }
+        if (operation.value === "rotar") {
+          cursor += 1;
+          expect("(");
+          expectType("NUM", "el ángulo de rotar");
+          expect(")");
+          return;
+        }
+        if (operation.value === "filtro") {
+          cursor += 1;
+          expect("(");
+          const filter = current();
+          const validFilters = ["desenfoque", "nitidez", "escala_grises", "sepia"];
+          if (!validFilters.includes(filter.value)) {
+            throw new SyntaxErrorAtToken(
+              `se esperaba un filtro válido (${validFilters.join(", ")}) y se encontró '${filter.value}'`,
+              filter
+            );
+          }
+          cursor += 1;
+          expect(")");
+          return;
+        }
+        throw new SyntaxErrorAtToken(
+          "se esperaba una operación: recortar, escalar, rotar o filtro",
+          operation
+        );
+      }
+
+      expect("imagen");
+      expectType("IDENT", "el nombre de la imagen");
+      expect("{");
+      parseOperation();
+      while (current().value === ";") {
+        cursor += 1;
+        parseOperation();
+      }
+      expect("}");
+      if (current().type !== "EOF") {
+        throw new SyntaxErrorAtToken(
+          `hay contenido adicional después del programa: '${current().value}'`,
+          current()
+        );
+      }
+      return tokens.length - 1;
+    }
+
+    function errorLocation(source, position) {
+      const preceding = source.slice(0, position);
+      const lines = preceding.split("\n");
+      return `línea ${lines.length}, columna ${lines[lines.length - 1].length + 1}`;
+    }
+
+    ui.validatorForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const source = ui.sourceInput.value;
+      ui.validationResult.classList.add("visible");
+      ui.validationResult.classList.remove("invalid");
+      try {
+        const tokenCount = validateDslSource(source);
+        ui.validationResult.textContent =
+          `Cadena válida: cumple la sintaxis del DSL (${tokenCount} tokens). ` +
+          "La comprobación no valida dimensiones ni otros valores semánticos.";
+      } catch (error) {
+        ui.validationResult.classList.add("invalid");
+        if (error instanceof SyntaxErrorAtToken) {
+          ui.validationResult.textContent =
+            `Cadena inválida en ${errorLocation(source, error.token.position)}: ${error.message}.`;
+        } else {
+          ui.validationResult.textContent =
+            `No se pudo comprobar la cadena: ${error instanceof Error ? error.message : String(error)}.`;
+        }
+      }
+    });
 
     function validateRequest(request) {
       if (!request || typeof request !== "object" || Array.isArray(request)) {

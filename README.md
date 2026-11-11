@@ -117,6 +117,12 @@ sentencial. Incluye `w1` y `w2`; también permite cargar una derivación JSON co
 el mismo formato que usa la herramienta de consola. No requiere servidor ni
 instalaciones.
 
+El apartado **Comprobar una cadena del DSL** permite escribir un programa y
+verificar su sintaxis. Por ejemplo,
+`imagen foto { recortar(10, 20, 300); filtro(sepia) }` se reporta como inválido
+porque `recortar` requiere cuatro parámetros. Esta comprobación solo valida la
+sintaxis; no valida las dimensiones ni procesa imágenes.
+
 Para una derivación propia, guarde un JSON con esta forma y ejecútelo como
 `python -m imagen_dsl ruta\derivacion.json`:
 
